@@ -1,0 +1,12 @@
+Z Informix DA todo list
+-----------------------
+
+  - Advanced error handling ( display warnings )
+
+  - Implement Scroll Cursors and Cursors with Hold
+
+  - Check Blob possible usage
+
+  - Add test units
+
+  - Release a Zope 3 Package version

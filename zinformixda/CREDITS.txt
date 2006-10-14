@@ -1,0 +1,40 @@
+ZInformixDA contributors
+------------------------
+
+Name: papa
+Link: http://www.zope.org/Members/papa/
+Note: Very usefull modified ZInformixDA version
+
+Name: Isaac Salsberg ( isalsberg@yahoo.com )
+Link: http://www.zope.org/Members/isalsberg/
+Note: How to compile/link ZInformixDA on win32 using MS VC 6.0
+
+Name: Carsten Haese ( chaese@users.sourceforge.net )
+Link: http://informixdb.sourceforge.net/
+Note: informixdb current maintainter & zinformixda project hosting
+
+Name: Stephen J. Turner ( sjturner@ix.netcom.com )
+Link: http://starship.python.net/crew/sturner/informixdb.html
+Note: old informixdb maintainer
+
+Name: Alexander Kuznetsov
+Link: http://thor.prohosting.com/~alexan/pub/Kinfxdb/
+Note: Kinfxdb maintainer
+
+Name: Mark Rees
+Link: http://www.zope.org/Members/mark_rees/, http://hex-dump.blogspot.com/
+Note: ZInformixDA version 0.2
+
+Name: Andy Dustman ( andy@dustman.net )
+Link: http://www.zope.org/Members/adustman/, http://sourceforge.net/projects/mysql-python/
+Note: MySQLdb and DA
+
+Thank you
+---------
+
+- Zope Corporation for the ZOPE/ZEO environment. :)
+
+- Entire Zope Community for their big help.
+
+- Julio Silva ( aka zorton ) for findind the need to
+have and support ZInformixDA. :>

@@ -1,0 +1,231 @@
+Z Informix DA installation
+--------------------------
+
+  Supported Platforms
+
+    ZInformixDA should work in any platform where you can
+    run Zope, build the informixdb python package, or in
+    other words in any IBM Informix supported platform.
+
+  Prerequisites
+
+    Please check DEPENDENCIES.txt for more information.
+
+  Installation ( short version )
+
+    Fullfill the prerequesites. Unzip/Untar ZInformixDA
+    into your "Products" folder and restart Zope.
+
+  Installation ( long version )
+
+    Linux:
+
+      I will try to describe an installation on a redhat-like linux.
+      It should be similar in any other linux distro.
+
+      step 1) Informix Client Software Development Kit (CSDK)
+
+        Create a temp installation folder.
+
+        # cd ~
+        # mkdir temp
+        # cd temp
+
+        Download the CSDK into temp. You may need to register
+        at IBM to be able to download the file.
+
+        # tar xvf clientsdk.2.90.UC4.LINUX.tar
+        # chown -R root.root .
+        # chmod -R 755 .
+
+        Add a group and user for informix and prepare
+        some needed environment values. We will use /opt/informix
+        to install the csdk.
+
+        # groupadd informix
+        # useradd -g informix -d /dev/null informix
+        # mkdir /opt/informix
+        # INFORMIXDIR=/opt/informix
+        # export INFORMIXDIR
+        # ACCEPTLICENSE=yes
+        # export ACCEPTLICENSE
+
+        Install using the rpm installation method. Please read
+        the doc/Client_install_guide.pdf. You have there plenty
+        of options for your specific system.
+
+        # rpm -ivh --prefix $INFORMIXDIR message.rpm
+        # rpm -ivh --prefix $INFORMIXDIR gls.rpm
+        # rpm -ivh --prefix $INFORMIXDIR clientsdkcontent.rpm
+
+      step 2) InformixDB Python Module
+
+        Download it.
+
+        # tar xvfz InformixDB-2.2.tar.gz
+        # chown -R root.root InformixDB-2.2
+        # chmod -R 755 InformixDB-2.2
+        # cd InformixDB-2.2
+
+        If you are using a binary package of Zope, you need run
+        setup.py with the python executable that came with Zope.
+
+        # /usr/local/bin/python2.4 setup.py build_ext
+        # /usr/local/bin/python2.4 setup.py install
+
+        Please read the InformixDB README.txt. You have there more
+        usefull options that you can use in your system.
+
+      step 3) System Configurations
+
+        Don't forget to configure your dynamic linker run time bindings. :>
+
+        # vi /etc/ld.so.conf
+
+          /opt/informix/lib
+          /opt/informix/lib/esql
+
+        # ldconfig
+
+        If you are going to use onsoctcp as the connectivity protocol, don't
+        forget to add some network services into /etc/services.
+
+        # vi /etc/services
+
+          sqlexec    1525/tcp    # Informix SQL
+          sqlexec2   1526/tcp    # Informix SQL
+
+        And of course, edit the default sqlhosts to add your own informix
+        servers.
+
+        # vi /opt/informix/etc/sqlhosts
+
+          dbinst2    onsoctcp    10.10.12.44    sqlexec2
+          ancdb01    onsoctcp    10.0.12.14     sqlexec
+
+        At least two environment values have to exist in all profiles.
+        Without them, informixdb won't work.
+
+        # vi /etc/profile.d/informix.sh
+
+          INFORMIXDIR=/opt/informix
+          INFORMIXSERVER=ptdpt2000
+          export INFORMIXDIR INFORMIXSERVER
+
+        # chmod 755 /etc/profile.d/informix.sh
+
+        # reboot
+
+      step 4) Test your informixdb installation
+
+        # /usr/local/bin/python2.4
+        Python 2.4.3 (#1, Aug 23 2006, 15:28:44)
+        [GCC 3.4.5 20051201 (Red Hat 3.4.5-2)] on linux2
+        Type "help", "copyright", "credits" or "license" for more information.
+        >>> import informixdb
+        >>>
+
+      step 5) ZInformixDA
+
+        Download ZInformixDA. I assume that you have your zope
+        installation and/or instance in /usr/local/zope.
+
+        # tar xvfz ZInformixDA-0.3.tar.gz
+        # chown -R root.root ZInformixDA
+        # chmod -R 755 ZInformixDA/
+        # mv ZInformixDA /usr/local/zope/Products/
+        # /usr/local/zope/bin/runzope
+
+        If everything went well you will see a new Product in your
+        Zope ControlPanel and the possibility to add a Z Informix
+        Database Connection.
+
+    Windows:
+
+      This installation description should be similar in any windows
+      release.
+
+      step 1) Informix Client Software Development Kit (CSDK)
+
+        Create a temp installation folder.
+
+        c:\temp
+
+        Download the CSDK into temp. You may need to register
+        at IBM to be able to download the file.
+
+        c:\temp\clientsdk.2.90.TC6.WIN.zip
+
+        Unzip the file and run installation.
+
+        c:\temp\clientsdk.2.90.TC6.WIN\IBM Informix Client-SDK.msi
+
+        Use the custom installation mode and don't forget to
+        "Set INFORMIXDIR to the newly chosen directory".
+
+        Follow the instructions and reboot your system after
+        installation.
+
+      step 2) InformixDB Python Module
+
+        Download into temp folder and run installation.
+
+        c:\temp\InformixDB-2.3.win32-py2.4.exe
+
+        If you are using a binary package of Zope, you probably
+        have to copy informixdb.* files from a python installation
+        into Zope lib folder.
+
+        C:\Program Files\Zope-2.9.4\bin\Lib\site-packages
+
+        Please read Isaac Salsberg tutorial on how to compile/link
+        ZInformixDA on win32 if you need to compile informixdb
+        module from scratch:
+
+        http://www.zope.org/Members/isalsberg/InformixDA/How-ToZInformixDA
+
+      step 3) System Configurations
+
+        Use "Setnet32" program to setup informix hosts and
+        environment variables. Set at least INFORMIXDIR and
+        INFORMIXSERVER.
+
+      step 4) Test your informixdb installation
+
+        C:\Program Files\Zope-2.9.4\bin>python
+        Python 2.4.3 (#69, Mar 29 2006, 17:35:34) [MSC v.1310 32 bit (Intel)] on win32
+        Type "help", "copyright", "credits" or "license" for more information.
+        >>> import informixdb
+        >>>
+
+      step 5) ZInformixDA
+
+        Download and unzip ZInformixDA into your Products folder.
+
+        If everything went well you will see a new Product in your
+        Zope ControlPanel and the possibility to add a Z Informix
+        Database Connection.
+
+  Database Adapter Usage
+
+    Add a Z Informix Database Connection and start using
+    ZSQL Methods to query your database.
+
+  Upgrading
+
+    I've tried to evolve the code without breaking nothing. So the
+    upgrade process is ( or at least "should be" ) transparent.
+
+    The only restriction is the need to use an informixdb that follows
+    the Python Database API Specification v2.0. If you use the old
+    informixdb module on your zope python version, your have to
+    upgrade it too.
+
+  Support/Bugs/Features/Future
+
+    If you have some questions about this zope product, please drop
+    me an email and i will be glad to help you.
+
+--
+Olavo Santos <nbk@cyberdude.com>
+http://www.varkala.net/
