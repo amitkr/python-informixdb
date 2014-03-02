@@ -1,9 +1,0 @@
-ZInformixDA is distributed under the provisions of the Zope Public License
-(ZPL) v2.1.  See ZopePublicLicense.txt for the license text.
-
-Copyright (C) 2005 ZInformixDA Contributors. See CREDITS.txt for a list
-of ZInformixDA contributors.
-
-ZInformixDA contains source code derived from:
-
-- Zope 2, copyright (C) 2001-2006 by Zope Corporation.
