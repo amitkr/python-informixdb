@@ -8,9 +8,9 @@ Database API.  This release implements version 2.0 of the DB-API:
 
 The module consists of two components:
 
-- `_informixdb`', a Python C extension that interfaces with INFORMIX-ESQL/C
+- `_informixdb`, a Python C extension that interfaces with INFORMIX-ESQL/C
   and implements the DB-API.
-- `informixdb`', a Python module that wraps around `_informixdb` and implements
+- `informixdb`, a Python module that wraps around `_informixdb` and implements
   various helper classes.
 
 It is released under a BSD-like license.  See the COPYRIGHT file
@@ -35,12 +35,21 @@ In a hurry?
 Extract the source distribution, and `cd` to the top-level directory.
 Type `python setup.py build_ext` and, as root, `python setup.py install`'.
 
+ASSUMPTION:
+* your environment is setup to connect with a running informix database.
+* your path and library environment settings enable you to use `esql` and
+  informix `c` libraries.
+
 Example:
 ```bash
 $ git clone https://github.com/amitkr/python-informixdb
 $ cd python-informixdb
+# build
 $ python setup.py build
-$ sudo -E python setyp.py install
+# install
+$ sudo -E python setup.py install
+# test
+$ python tests/testdbapi.py
 ```
 
 Or want the details?
